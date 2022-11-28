@@ -10,6 +10,7 @@ use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\TextInput\Mask;
 use App\Filament\Resources\EmpresaResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\EmpresaResource\RelationManagers;
@@ -22,6 +23,8 @@ class EmpresaResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?int $navigationSort = 0;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -33,7 +36,8 @@ class EmpresaResource extends Resource
                         ->maxLength(255),
                     Forms\Components\TextInput::make('cnpj')
                         ->required()
-                        ->maxLength(255),
+                        ->maxLength(18)
+                        ->mask(fn (Mask $mask) => $mask->pattern('000.000.000\\\000-00')),
                     Forms\Components\TextInput::make('endereco')
                         ->required()
                         ->maxLength(255),
@@ -45,7 +49,7 @@ class EmpresaResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nome'),
+                Tables\Columns\TextColumn::make('nome')->searchable(),
                 Tables\Columns\TextColumn::make('cnpj'),
                 Tables\Columns\TextColumn::make('endereco'),
             ])
@@ -76,4 +80,5 @@ class EmpresaResource extends Resource
             'edit' => Pages\EditEmpresa::route('/{record}/edit'),
         ];
     }
+
 }

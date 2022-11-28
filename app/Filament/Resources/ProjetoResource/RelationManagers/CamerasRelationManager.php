@@ -10,9 +10,9 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class UsersRelationManager extends RelationManager
+class CamerasRelationManager extends RelationManager
 {
-    protected static string $relationship = 'Usuários';
+    protected static string $relationship = 'cameras';
 
     protected static ?string $recordTitleAttribute = 'projeto_id';
 
@@ -20,9 +20,7 @@ class UsersRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('projeto_id')
-                    ->required()
-                    ->maxLength(255),
+                //
             ]);
     }
 
@@ -30,9 +28,7 @@ class UsersRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->label('Nome'),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('empresa.nome'),
+                Tables\Columns\TextColumn::make('nome'),
             ])
             ->filters([
                 //

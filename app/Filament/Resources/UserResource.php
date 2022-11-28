@@ -10,6 +10,7 @@ use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Filament\Resources\Pages\Page;
 use Filament\Forms\Components\Card;
+use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
@@ -29,6 +30,8 @@ class UserResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     protected static ?string $navigationLabel = 'Usuários';
+
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
@@ -62,7 +65,7 @@ class UserResource extends Resource
                     Select::make('empresa_id')
                         ->relationship('empresa', 'nome')
                         ->required(),
-                    Select::make('projetos_id')
+                    Select::make('projeto_id')
                         ->relationship('projeto', 'nome')
                         ->required(),
                 ])
@@ -73,10 +76,10 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->label('Nome'),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('empresa.nome'),
-                Tables\Columns\TextColumn::make('projeto.nome'),
+                Tables\Columns\TextColumn::make('name')->label('Nome')->searchable(),
+                Tables\Columns\TextColumn::make('email')->searchable(),
+                Tables\Columns\TextColumn::make('empresa.nome')->searchable(),
+                Tables\Columns\TextColumn::make('projeto.nome')->searchable(),
             ])
             ->filters([
                 //

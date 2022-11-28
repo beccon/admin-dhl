@@ -20,4 +20,9 @@ class Projeto extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function Cameras()
+    {
+        return $this->hasMany(Camera::class);
+    }
 }
