@@ -70,6 +70,7 @@ class UserResource extends Resource
                         ->reactive()
                         ->afterStateUpdated(fn  (callable $set) => $set('projeto_id', null)),
                     Select::make('projeto_id')
+                        ->multiple()
                         ->label('Projetos')
                         ->options(function (callable $get)
                         {

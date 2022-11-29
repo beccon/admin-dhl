@@ -33,14 +33,27 @@ class EmpresaResource extends Resource
                 ->schema([
                     Forms\Components\TextInput::make('nome')
                         ->required()
+                        ->unique(Empresa::class, ignorable: fn ($record) => $record)
                         ->maxLength(255),
                     Forms\Components\TextInput::make('cnpj')
                         ->required()
+                        ->unique(Empresa::class, ignorable: fn ($record) => $record)
                         ->maxLength(18)
                         ->mask(fn (Mask $mask) => $mask->pattern('000.000.000\\\000-00')),
                     Forms\Components\TextInput::make('endereco')
                         ->required()
                         ->maxLength(255),
+                        Forms\Components\TextInput::make('responsavel_nome')
+                        ->label('Responsável')
+                        ->required()
+                        ->maxLength(255),
+                        Forms\Components\TextInput::make('responsavel_telefone')
+                        ->label('Telefone')
+                        ->required()
+                        ->unique(Empresa::class, ignorable: fn ($record) => $record)
+                        ->maxLength(255),
+
+
                 ])
             ]);
     }
@@ -50,8 +63,10 @@ class EmpresaResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nome')->searchable(),
-                Tables\Columns\TextColumn::make('cnpj'),
-                Tables\Columns\TextColumn::make('endereco'),
+                Tables\Columns\TextColumn::make('cnpj')->searchable(),
+                Tables\Columns\TextColumn::make('endereco')->searchable(),
+                Tables\Columns\TextColumn::make('responsavel_nome')->searchable()->label('Responsável'),
+                Tables\Columns\TextColumn::make('responsavel_telefone')->searchable()->label('Telefone'),
             ])
             ->filters([
                 //

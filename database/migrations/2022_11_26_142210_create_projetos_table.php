@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('projetos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('empresa_id')->constrained()->cascateOnDelete();
-            $table->string('nome');
+            $table->string('nome')->unique();;
             $table->timestamps();
         });
     }

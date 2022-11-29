@@ -35,6 +35,7 @@ class CameraResource extends Resource
                             ->required(),
                         TextInput::make('nome')
                             ->required()
+                            ->unique(Camera::class, ignorable: fn ($record) => $record)
                             ->maxLength(255)
                     ])
             ]);

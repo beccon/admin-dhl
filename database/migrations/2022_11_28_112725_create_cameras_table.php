@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('cameras', function (Blueprint $table) {
             $table->id();
             $table->foreignId('projeto_id')->constrained()->cascateOnDelete();
-            $table->string('nome');
+            $table->string('nome')->unique();;
             $table->timestamps();
         });
     }

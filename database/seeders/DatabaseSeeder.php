@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             'nome' => 'DHL',
             'cnpj' => '000',
             'endereco' => 'endereço 1',
+            'responsavel_nome' => 'responsavel',
+            'responsavel_telefone' => '123'
        ]);
 
        Projeto::factory()->create([

@@ -38,6 +38,7 @@ class ProjetoResource extends Resource
                             ->required(),
                         TextInput::make('nome')
                             ->required()
+                            ->unique(Projeto::class, ignorable: fn ($record) => $record)
                             ->maxLength(255)
                     ])
             ]);

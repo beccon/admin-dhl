@@ -21,6 +21,8 @@ class EmpresaFactory extends Factory
             'nome' => fake()->name(),
             'cnpj' => Str::random(10),
             'endereco' => Str::random(10),
+            'responsavel_nome' => Str::random(10),
+            'responsavel_telefone' => Str::random(10),
         ];
     }
 
