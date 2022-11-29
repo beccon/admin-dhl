@@ -48,7 +48,8 @@ class UsersRelationManager extends RelationManager
             Select::make('empresa_id')
                 ->relationship('empresa', 'nome')
                 ->required(),
-            Select::make('projetos_id')
+            Select::make('projeto_id')
+                ->multiple()
                 ->relationship('projeto', 'nome')
                 ->required(),
             ]);
@@ -60,8 +61,6 @@ class UsersRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Nome'),
                 Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('empresa.nome'),
-                Tables\Columns\TextColumn::make('projeto.nome'),
             ])
             ->filters([
                 //

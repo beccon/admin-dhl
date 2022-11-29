@@ -46,7 +46,7 @@ class UserResource extends Resource
                     Forms\Components\TextInput::make('email')
                         ->label('Email')
                         ->email()
-                        ->unique(User::class)
+                        ->unique(User::class, ignorable: fn ($record) => $record)
                         ->required()
                         ->maxLength(255),
                     TextInput::make('password')
@@ -67,6 +67,7 @@ class UserResource extends Resource
                         ->relationship('empresa', 'nome')
                         ->required(),
                     Select::make('projeto_id')
+                        ->multiple()
                         ->relationship('projeto', 'nome')
                         ->required(),
                 ])

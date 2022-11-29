@@ -21,8 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'empresa_id',
-        'projeto_id'
+        'empresa_id'
     ];
 
     /**
@@ -51,7 +50,7 @@ class User extends Authenticatable
 
     public function projeto()
     {
-        return $this->belongsTo(Projeto::class);
+        return $this->belongsToMany(Projeto::class,'projetos_usuarios');
     }
 
 }

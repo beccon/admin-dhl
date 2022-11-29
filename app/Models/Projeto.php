@@ -18,7 +18,7 @@ class Projeto extends Model
 
     public function Usuários()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class, 'projetos_usuarios');
     }
 
     public function Cameras()

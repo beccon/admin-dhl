@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('empresa_id')->constrained()->cascateOnDelete();
+        Schema::create('projetos_usuarios', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained()->cascateOnDelete();
+            $table->foreignId('projeto_id')->constrained()->cascateOnDelete();
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('projetos_usuarios');
     }
 };

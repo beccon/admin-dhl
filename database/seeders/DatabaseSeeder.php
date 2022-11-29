@@ -32,8 +32,7 @@ class DatabaseSeeder extends Seeder
              'name' => 'User 1',
              'email' => 'user1@test.com',
              'password' => bcrypt('password'),
-             'empresa_id' => 1,
-             'projeto_id' => 1,
+             'empresa_id' => 1
         ]);
     }
 }
