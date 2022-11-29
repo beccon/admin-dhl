@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Resources\UserResource\RelationManagers\EmpresasRelationManager;
 use App\Filament\Resources\UserResource\RelationManagers\ProjetosRelationManager;
+use App\Models\Empresa;
 
 class UserResource extends Resource
 {
@@ -64,12 +65,21 @@ class UserResource extends Resource
                         ->minLength(8)
                         ->dehydrated(false),
                     Select::make('empresa_id')
-                        ->relationship('empresa', 'nome')
-                        ->required(),
+                        ->label('Empresas')
+                        ->options(Empresa::all()->pluck('nome', 'id')->toArray())
+                        ->reactive()
+                        ->afterStateUpdated(fn  (callable $set) => $set('projeto_id', null)),
                     Select::make('projeto_id')
-                        ->multiple()
-                        ->relationship('projeto', 'nome')
-                        ->required(),
+                        ->label('Projetos')
+                        ->options(function (callable $get)
+                        {
+                            $empresas = Empresa::find($get('empresa_id'));
+                            if(!$empresas)
+                            {
+                                return Empresa::all()->pluck('nome', 'id');
+                            }
+                            return $empresas->projetos()->pluck('nome', 'id');
+                        })
                 ])
             ]);
     }
